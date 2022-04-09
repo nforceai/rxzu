@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "declaration": true,
+    "types": ["resize-observer-browser"],
+    "lib": ["DOM", "ES2019"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
+}
