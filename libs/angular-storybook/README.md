@@ -2,18 +2,7 @@
 
 >
 
-![Quality Check](https://github.com/netzerstudio/rxzu/workflows/Quality%20Check/badge.svg)
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
-
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/netzerstudio/rxzu)
-[![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![coc-badge](https://img.shields.io/badge/codeof-conduct-ff69b4.svg)](https://github.com/netzerstudio/rxzu/blob/main/CODE_OF_CONDUCT.md)
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+![Quality Check](https://github.com/netzerstudio/rxzu/workflows/Quality%20Check/badge.svg)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END --> [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/netzerstudio/rxzu) [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![coc-badge](https://img.shields.io/badge/codeof-conduct-ff69b4.svg)](https://github.com/netzerstudio/rxzu/blob/main/CODE_OF_CONDUCT.md) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Gitter](https://badges.gitter.im/rxzu-diagrams/community.svg)](https://gitter.im/rxzu-diagrams/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 > Zu 図 : drawing; picture; diagram; figure; illustration; chart; graph
 
@@ -37,6 +26,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
+    <td align="center"><a href="https://github.com/DanielNetzer"><img src="https://avatars.githubusercontent.com/u/14941988?v=4" width="100px;" alt=""/><br /><sub><b>Daniel Netzer</b></sub></a><br /><a href="https://github.com/netzerstudio/rxzu/commits?author=DanielNetzer" title="Documentation">📖</a> <a href="https://github.com/netzerstudio/rxzu/commits?author=DanielNetzer" title="Code">💻</a> <a href="#ideas-DanielNetzer" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/danzrou"><img src="https://avatars3.githubusercontent.com/u/6433766?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Roujinsky</b></sub></a><br /><a href="https://github.com/netzerstudio/rxzu/commits?author=danzrou" title="Documentation">📖</a> <a href="https://github.com/netzerstudio/rxzu/commits?author=danzrou" title="Code">💻</a> <a href="#ideas-danzrou" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/ronnetzer"><img src="https://avatars2.githubusercontent.com/u/1116785?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ron Netzer</b></sub></a><br /><a href="https://github.com/netzerstudio/rxzu/commits?author=ronnetzer" title="Documentation">📖</a> <a href="https://github.com/netzerstudio/rxzu/commits?author=ronnetzer" title="Code">💻</a> <a href="#ideas-ronnetzer" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/omerheller"><img src="https://avatars0.githubusercontent.com/u/18534185?v=4?s=100" width="100px;" alt=""/><br /><sub><b>omerheller</b></sub></a><br /><a href="https://github.com/netzerstudio/rxzu/commits?author=omerheller" title="Code">💻</a> <a href="#ideas-omerheller" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/netzerstudio/rxzu/commits?author=omerheller" title="Documentation">📖</a></td>
