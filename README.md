@@ -2,7 +2,7 @@
 
 >
 
-![Quality Check](https://github.com/netzerstudio/rxzu/workflows/Quality%20Check/badge.svg)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END --> [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/netzerstudio/rxzu) [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![coc-badge](https://img.shields.io/badge/codeof-conduct-ff69b4.svg)](https://github.com/netzerstudio/rxzu/blob/main/CODE_OF_CONDUCT.md) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Slack](https://img.shields.io/badge/slack-chat-green.svg)](https://netzerstudio.slack.com/)
+![Quality Check](https://github.com/netzerstudio/rxzu/workflows/Quality%20Check/badge.svg)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END --> [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/netzerstudio/rxzu) [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![coc-badge](https://img.shields.io/badge/codeof-conduct-ff69b4.svg)](https://github.com/netzerstudio/rxzu/blob/main/CODE_OF_CONDUCT.md) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Slack](https://img.shields.io/badge/slack-chat-green.svg)](https://netzerstudio.slack.com/app_redirect?channel=rxzu)
 
 > Zu 図 : drawing; picture; diagram; figure; illustration; chart; graph
 
@@ -13,7 +13,7 @@ RxZu is a diagrams engine system, built on top of RxJS, which takes the idea of 
 RxZu encourages creativity. It allows you to create any node, link, label, or even a custom entity and provide powerful tools with a moderate learning curve, suitable for both experienced and inexperienced developers alike.
 
 - 🤓 Learn about it on our [Storybook](https://netzerstudio.github.io/rxzu)
-- 🍄 Join RxZu [Slack](https://netzerstudio.slack.com/) room
+- 🍄 Join RxZu [Slack](https://netzerstudio.slack.com/app_redirect?channel=rxzu) room
 
 ![Alt Text](https://github.com/netzerstudio/rxzu/raw/main/assets/draganddropexample.gif)
 
