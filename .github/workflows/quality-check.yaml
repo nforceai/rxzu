@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: node_modules # !WARN does not work if running multiple node versions, instead use https://github.com/actions/cache/blob/master/examples.md#node---yarn
@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: 18
       - name: Restore dependencies from cache
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -58,7 +58,7 @@ jobs:
         with:
           node-version: 18
       - name: Restore dependencies from cache
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -79,10 +79,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+      uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v3
