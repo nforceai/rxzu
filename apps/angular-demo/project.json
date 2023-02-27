@@ -1,6 +1,7 @@
 {
+  "name": "angular-demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/angular-demo",
   "sourceRoot": "apps/angular-demo/src",
   "prefix": "rxzu",
   "targets": {

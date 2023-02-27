@@ -51,5 +51,10 @@
       "style": "scss"
     }
   },
-  "defaultProject": "angular-demo"
+  "defaultProject": "angular-demo",
+  "targetDefaults": {
+    "build": {
+      "inputs": ["default", "^default", "{workspaceRoot}/.storybook/**/*"]
+    }
+  }
 }

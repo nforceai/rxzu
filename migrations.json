@@ -1,0 +1,52 @@
+{
+  "migrations": [
+    {
+      "version": "14.0.0",
+      "cli": "nx",
+      "description": "Migrate Storybook to v6",
+      "factory": "./src/migrations/update-14-0-0/migrate-to-storybook-6",
+      "package": "@nrwl/storybook",
+      "name": "update-14.0.0"
+    },
+    {
+      "version": "14.1.8",
+      "cli": "nx",
+      "description": "Change storybook targets for Angular projects to use @storybook/angular executors",
+      "factory": "./src/migrations/update-14-1-8/change-storybook-targets",
+      "package": "@nrwl/storybook",
+      "name": "update-14.1.8"
+    },
+    {
+      "cli": "nx",
+      "version": "15.0.0-beta.0",
+      "description": "Stop hashing storybook config files and story files for build targets and dependent tasks",
+      "factory": "./src/migrations/update-15-0-0/add-storybook-inputs",
+      "package": "@nrwl/storybook",
+      "name": "update-15.0.8-add-storybook-inputs"
+    },
+    {
+      "cli": "nx",
+      "version": "15.4.6-beta.0",
+      "description": "Refactor the Storybook target options",
+      "factory": "./src/migrations/update-15-4-6/refactor-executor-options",
+      "package": "@nrwl/storybook",
+      "name": "update-15.4.6"
+    },
+    {
+      "cli": "nx",
+      "version": "15.5.3-beta.0",
+      "description": "Add @nrwl/webpack if it is missing and is used.",
+      "factory": "./src/migrations/update-15-5-3/ensure-webpack-package",
+      "package": "@nrwl/storybook",
+      "name": "update-15-5-3"
+    },
+    {
+      "cli": "nx",
+      "version": "15.7.0-beta.0",
+      "description": "Add @storybook/addon-essentials to all project-level configs and attempt to remove root config.",
+      "factory": "./src/migrations/update-15-7-0/add-addon-essentials-to-all",
+      "package": "@nrwl/storybook",
+      "name": "update-15-7-0"
+    }
+  ]
+}

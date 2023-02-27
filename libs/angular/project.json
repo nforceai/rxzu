@@ -1,6 +1,7 @@
 {
+  "name": "angular",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/angular",
   "sourceRoot": "libs/angular/src",
   "prefix": "rxzu",
   "targets": {
@@ -35,6 +36,35 @@
           "libs/angular/src/**/*.ts",
           "libs/angular/src/**/*.html"
         ]
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/angular/.storybook",
+        "browserTarget": "angular:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/angular",
+        "configDir": "libs/angular/.storybook",
+        "browserTarget": "angular:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       }
     }
   },

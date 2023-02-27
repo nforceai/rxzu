@@ -19,7 +19,7 @@ export abstract class AbstractRegistry<C> {
   }
 
   clear() {
-    this._registry.clear()
+    this._registry.clear();
   }
 
   delete(key: string) {
