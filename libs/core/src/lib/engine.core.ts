@@ -29,6 +29,10 @@ export class DiagramEngine {
     this.canvasManager = _canvasManager || this.createCanvasManager(_canvas);
   }
 
+  test() {
+    return true;
+  }
+
   setup({
     maxZoomIn,
     maxZoomOut,
@@ -238,14 +242,15 @@ export class DiagramEngine {
     const canvas = this.getCanvasManager().getCanvas();
     const model = this.diagramModel!;
     const canvasRect = canvas.getBoundingClientRect();
-    const {
-      height: nodesHeight,
-      width: nodesWidth,
-    } = this.canvasManager.getNodeLayersRect(model!.getNodesArray());
+    const { height: nodesHeight, width: nodesWidth } =
+      this.canvasManager.getNodeLayersRect(model.getNodesArray());
     const { height: canvasHeight, width: canvasWidth } = canvasRect;
 
     const zoomFactor = this.calcZoomFactor(nodesWidth, nodesHeight) / 1.15;
-    const withAdditional = this.coerceZoom(zoomFactor - additionalZoom, zoomFactor);
+    const withAdditional = this.coerceZoom(
+      zoomFactor - additionalZoom,
+      zoomFactor
+    );
     const x = (canvasWidth - nodesWidth * withAdditional) / 2;
     const y = (canvasHeight - nodesHeight * withAdditional) / 2;
 

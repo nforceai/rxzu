@@ -1,5 +1,4 @@
 import {
-  ComponentFactoryResolver,
   ComponentRef,
   Injectable,
   Injector,
@@ -20,10 +19,7 @@ export class FactoryService extends AbstractFactory<
   Type<any>,
   ComponentRef<any>
 > {
-  constructor(
-    registry: RegistryService,
-    private cfr: ComponentFactoryResolver
-  ) {
+  constructor(registry: RegistryService) {
     super(registry);
   }
 
@@ -58,11 +54,7 @@ export class FactoryService extends AbstractFactory<
       parent: host.injector,
     });
 
-    const ref = host.createComponent(
-      this.cfr.resolveComponentFactory(cmp),
-      index,
-      injector
-    );
+    const ref = host.createComponent(cmp as Type<unknown>, { index, injector });
 
     return ref;
   }

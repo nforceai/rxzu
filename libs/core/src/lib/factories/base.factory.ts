@@ -60,7 +60,7 @@ export abstract class AbstractFactory<
 
     this.detectChanges(widget);
 
-    return (widget as unknown) as WidgetType;
+    return widget as unknown as WidgetType;
   }
 
   protected get<M extends BaseModel>(model: M): CompType | undefined {

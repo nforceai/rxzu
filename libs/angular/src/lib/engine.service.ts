@@ -1,9 +1,4 @@
-import {
-  ComponentFactoryResolver,
-  Injectable,
-  Renderer2,
-  RendererFactory2,
-} from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { DiagramEngine } from '@rxzu/core';
 import { FactoryService } from './factory.service';
 
@@ -12,7 +7,6 @@ export class EngineService extends DiagramEngine {
   protected _renderer: Renderer2;
 
   constructor(
-    protected resolver: ComponentFactoryResolver,
     protected rendererFactory: RendererFactory2,
     protected override factory: FactoryService
   ) {

@@ -1,5 +1,6 @@
 {
-  "root": "apps/angular-demo-e2e",
+  "name": "angular-demo-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/angular-demo-e2e/src",
   "projectType": "application",
   "targets": {
