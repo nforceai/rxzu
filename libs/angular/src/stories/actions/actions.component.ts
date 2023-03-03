@@ -39,6 +39,7 @@ export class ActionsExampleStoryComponent implements OnInit, AfterViewInit {
     const node1 = new NodeModel({
       coords: { x: 500, y: 300 },
     });
+
     const outPort = new PortModel({ id: 'outport1' });
     node1.addPort(outPort);
 
@@ -53,6 +54,7 @@ export class ActionsExampleStoryComponent implements OnInit, AfterViewInit {
       const nodeLoop = new NodeModel({
         coords: { x: 1000, y: 300 + index * 300 },
       });
+
       const portLoop = new PortModel({ id: `inport${index + 3}` });
       nodeLoop.addPort(portLoop);
 

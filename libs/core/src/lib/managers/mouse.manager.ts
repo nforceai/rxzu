@@ -8,10 +8,17 @@ import {
   LooseLinkDestroyed,
   InvalidLinkDestroyed,
 } from '../actions';
+import { ClickAction } from '../actions/click.action';
 import { DropAction } from '../actions/drop.action';
 import { DiagramEngine } from '../engine.core';
 import { Coords } from '../interfaces';
-import { NodeModel, PointModel, PortModel, BaseModel } from '../models';
+import {
+  NodeModel,
+  PointModel,
+  PortModel,
+  BaseModel,
+  LinkModel,
+} from '../models';
 import { isNil } from '../utils';
 
 export class MouseManager {
@@ -172,9 +179,8 @@ export class MouseManager {
             x: selectionModel.initialX + coords.x / zoomLevel,
             y: selectionModel.initialY + coords.y / zoomLevel,
           };
-          const gridRelativeCoords = this.diagramModel.getGridPosition(
-            newCoords
-          );
+          const gridRelativeCoords =
+            this.diagramModel.getGridPosition(newCoords);
 
           // magnetic inputs handling
           if (
@@ -274,54 +280,63 @@ export class MouseManager {
           new MoveCanvasAction(event.clientX, event.clientY, this.diagramModel)
         );
       }
-    } else if (selectedModel.model instanceof PortModel) {
-      // its a port element, we want to drag a link
-      if (
-        !selectedModel.model.isLocked() &&
-        selectedModel.model.getCanCreateLinks()
-      ) {
-        const relative = this.canvasManager.getZoomAwareRelativePoint(event);
-        const sourcePort = selectedModel.model;
-        const link = sourcePort.createLinkModel();
-
-        // if we don't have a link then we have reached the max amount, or we cannot create new ones
-        if (link) {
-          link.setSourcePort(sourcePort);
-          link.removeMiddlePoints();
-          if (link.getSourcePort() !== sourcePort) {
-            link.setSourcePort(sourcePort);
-          }
-          link.setTargetPort(null);
-
-          link.getFirstPoint().setCoords(relative);
-          link.getLastPoint().setCoords(relative);
-
-          this.diagramModel.clearSelection();
-          link.getLastPoint().setSelected();
-          this.diagramModel.addLink(link);
-          this.actionsManager.startFiringAction(
-            new MoveItemsAction(event.clientX, event.clientY, this.engine)
-          );
-        }
-      } else {
-        this.diagramModel.clearSelection();
-      }
-    } else if (
-      selectedModel.model instanceof PointModel &&
-      selectedModel.model.isConnectedToPort()
-    ) {
-      this.diagramModel.clearSelection();
     } else {
-      // its some other element, probably want to move it
-      if (!event.shiftKey && !selectedModel.model?.getSelected()) {
-        this.diagramModel.clearSelection();
-      }
-
-      selectedModel.model?.setSelected();
-
-      this.actionsManager.startFiringAction(
-        new MoveItemsAction(event.clientX, event.clientY, this.engine)
+      // something is clicked
+      this.actionsManager.onceAction(
+        new ClickAction(
+          selectedModel.model as PortModel | NodeModel | LinkModel | PortModel
+        )
       );
+
+      if (selectedModel.model instanceof PortModel) {
+        // its a port element, we want to drag a link
+        if (
+          !selectedModel.model.isLocked() &&
+          selectedModel.model.getCanCreateLinks()
+        ) {
+          const relative = this.canvasManager.getZoomAwareRelativePoint(event);
+          const sourcePort = selectedModel.model;
+          const link = sourcePort.createLinkModel();
+
+          // if we don't have a link then we have reached the max amount, or we cannot create new ones
+          if (link) {
+            link.setSourcePort(sourcePort);
+            link.removeMiddlePoints();
+            if (link.getSourcePort() !== sourcePort) {
+              link.setSourcePort(sourcePort);
+            }
+            link.setTargetPort(null);
+
+            link.getFirstPoint().setCoords(relative);
+            link.getLastPoint().setCoords(relative);
+
+            this.diagramModel.clearSelection();
+            link.getLastPoint().setSelected();
+            this.diagramModel.addLink(link);
+            this.actionsManager.startFiringAction(
+              new MoveItemsAction(event.clientX, event.clientY, this.engine)
+            );
+          }
+        } else {
+          this.diagramModel.clearSelection();
+        }
+      } else if (
+        selectedModel.model instanceof PointModel &&
+        selectedModel.model.isConnectedToPort()
+      ) {
+        this.diagramModel.clearSelection();
+      } else {
+        // its some other element, probably want to move it
+        if (!event.shiftKey && !selectedModel.model?.getSelected()) {
+          this.diagramModel.clearSelection();
+        }
+
+        selectedModel.model?.setSelected();
+
+        this.actionsManager.startFiringAction(
+          new MoveItemsAction(event.clientX, event.clientY, this.engine)
+        );
+      }
     }
 
     this.createMouseListeners();
@@ -444,7 +459,9 @@ export class MouseManager {
       });
 
       this.actionsManager.stopFiringAction();
-      this.actionsManager.startFiringAction(new DropAction(event, action.selectionModels));
+      this.actionsManager.startFiringAction(
+        new DropAction(event, action.selectionModels)
+      );
       this.actionsManager.stopFiringAction();
     } else {
       this.actionsManager.stopFiringAction();
@@ -485,7 +502,9 @@ export class MouseManager {
     const updatedZoomLvl = this.diagramModel.getZoomLevel();
     const zoomFactor = updatedZoomLvl / 100;
 
-    const boundingRect = (event.currentTarget as Element).getBoundingClientRect();
+    const boundingRect = (
+      event.currentTarget as Element
+    ).getBoundingClientRect();
     const clientWidth = boundingRect.width;
     const clientHeight = boundingRect.height;
 
