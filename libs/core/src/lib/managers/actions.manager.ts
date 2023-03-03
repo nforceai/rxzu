@@ -47,6 +47,15 @@ export class ActionsManager {
     return action;
   }
 
+  /**
+   * Fired and Finished at the same time
+   */
+  onceAction(action: BaseAction) {
+    this.startFiringAction(action);
+    this.fireAction();
+    this.stopFiringAction();
+  }
+
   observeActions() {
     return this.actionsBus$.select();
   }
