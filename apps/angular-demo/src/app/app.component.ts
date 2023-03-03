@@ -53,6 +53,10 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
+  reset() {
+    this.diagramModel.reset();
+  }
+
   /**
    * on block dropped, create new intent with the empty data of the selected block type
    */

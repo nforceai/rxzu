@@ -2,12 +2,10 @@ import { Observable, combineLatest, of, firstValueFrom } from 'rxjs';
 import {
   takeUntil,
   switchMap,
-  pluck,
   take,
   filter,
   map,
   catchError,
-  switchMapTo,
 } from 'rxjs/operators';
 import { SelectingAction } from '../actions';
 import { DiagramEngine } from '../engine.core';
@@ -220,7 +218,7 @@ export class CanvasManager {
 
           linksPainted$.push(
             this.paintModel(link, linksHost).pipe(
-              switchMapTo(
+              switchMap(() =>
                 link.selectLabel().pipe(
                   filter(
                     (
@@ -237,7 +235,7 @@ export class CanvasManager {
           );
         }
 
-        return combineLatest(linksPainted$).pipe(switchMapTo(of()));
+        return combineLatest(linksPainted$).pipe(switchMap(() => of()));
       }),
       catchError((err) => {
         console.error(err);
@@ -286,7 +284,12 @@ export class CanvasManager {
       observers.forEach((observer) => observer.disconnect());
     });
 
-    return toPromise(model.paintChanges().pipe(pluck('isPainted'), take(1)));
+    return toPromise(
+      model.paintChanges().pipe(
+        map((model) => model.isPainted),
+        take(1)
+      )
+    );
   }
 
   subscribeToModelChanges<T extends BaseModel>(element: HTMLElement, model: T) {
