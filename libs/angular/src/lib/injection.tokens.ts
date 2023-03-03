@@ -9,13 +9,11 @@ export interface ComponentProviderOptions<T = any> {
   namespace?: string;
 }
 
-export const COMPONENT: InjectionToken<
-  Omit<ComponentProviderOptions, 'type'>
-> = new InjectionToken('COMPONENT');
+export const COMPONENT: InjectionToken<Omit<ComponentProviderOptions, 'type'>> =
+  new InjectionToken('COMPONENT');
 
-export const DIAGRAM_DEFAULT_OPTIONS: InjectionToken<EngineSetup> = new InjectionToken(
-  'DIAGRAM_DEFAULT_OPTIONS',
-  {
+export const DIAGRAM_DEFAULT_OPTIONS: InjectionToken<EngineSetup> =
+  new InjectionToken('DIAGRAM_DEFAULT_OPTIONS', {
     providedIn: 'root',
     factory: function () {
       return {
@@ -28,5 +26,4 @@ export const DIAGRAM_DEFAULT_OPTIONS: InjectionToken<EngineSetup> = new Injectio
         portMagneticRadius: 30,
       } as EngineSetup;
     },
-  }
-);
+  });
