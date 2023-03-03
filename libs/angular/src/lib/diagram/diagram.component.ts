@@ -150,12 +150,7 @@ export class RxZuDiagramComponent implements OnInit, OnDestroy, ZonedClass {
 
     this.selectionBox$ = this.actionsManager.observeActions().pipe(
       map((a) => {
-        if (
-          a &&
-          a.action &&
-          a.action instanceof SelectingAction &&
-          a.state === 'firing'
-        ) {
+        if (a && a.action && a.action instanceof SelectingAction) {
           return a.action as SelectingAction;
         } else {
           return null;
@@ -176,12 +171,12 @@ export class RxZuDiagramComponent implements OnInit, OnDestroy, ZonedClass {
   }
 
   @HostListener('window:copy', ['$event'])
-  protected onCopy(event: ClipboardEvent) {
+  protected onCopy() {
     this.keyboardManager ? this.keyboardManager.onCopy() : noop();
   }
 
   @HostListener('window:paste', ['$event'])
-  protected onPaste(event: ClipboardEvent) {
+  protected onPaste() {
     this.keyboardManager ? this.keyboardManager.onPaste() : noop();
   }
 

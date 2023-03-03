@@ -65,4 +65,15 @@ export class SelectingAction extends BaseMouseAction {
     // only if box contains both top left and bottom right points, the element is contains in the box
     return isContainsTopLeftPoint && isContainBottomRightPoint;
   }
+
+  finalize() {
+    this.dimensions = {
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0,
+      right: 0,
+      bottom: 0,
+    };
+  }
 }
