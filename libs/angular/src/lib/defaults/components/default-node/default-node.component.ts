@@ -11,15 +11,7 @@ import {
 } from '@angular/core';
 import { NodeModel, PortModel } from '@rxzu/core';
 import { MODEL } from '../../../injection.tokens';
-import {
-  filter,
-  mapTo,
-  pluck,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-} from 'rxjs/operators';
+import { filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 import { RxZuDiagramComponent } from '../../../diagram/diagram.component';
 import { EngineService } from '../../../engine.service';
@@ -67,14 +59,16 @@ export class DefaultNodeComponent implements OnInit {
         switchMap((ports) =>
           combineLatest(
             ports.map((port) =>
-              port
-                .paintChanges()
-                .pipe(pluck('isPainted'), filter<boolean>(Boolean), take(1))
+              port.paintChanges().pipe(
+                map((port) => port.isPainted),
+                filter<boolean>(Boolean),
+                take(1)
+              )
             )
           )
         ),
         filter((val) => val !== null),
-        mapTo(true)
+        map(() => true)
       )
       .subscribe(
         () => !this.model.getPainted().isPainted && this.model.setPainted(true)
