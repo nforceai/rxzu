@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/nforceai/rxzu/compare/v4.0.0...v4.1.0) (2023-03-03)
+
+
+### Features
+
+* **click action:** added click action, emitting the clicked model with all relevant information ([dd256a0](https://github.com/nforceai/rxzu/commit/dd256a04cda8382e5ac7d3bb9d657963b17219bc)), closes [#1](https://github.com/nforceai/rxzu/issues/1)
+
 # [4.0.0](https://github.com/nforceai/rxzu/compare/v3.3.0...v4.0.0) (2023-02-27)
 
 
