@@ -61,9 +61,7 @@ export class CanvasManager {
 
   getModelElement(model: BaseModel): HTMLElement {
     const canvas = this.getCanvas();
-    const selector = canvas.querySelector(
-      `[data-type="${model.type}"][data-id="${model.id}"]`
-    );
+    const selector = canvas.querySelector(`#${model.type}-${model.id}`);
     if (selector === null) {
       throw new Error(
         `Cannot find [${model.type}] element with id [${model.id}]`
@@ -306,6 +304,7 @@ export class CanvasManager {
   }
 
   setBaseAttributes<T extends BaseModel>(element: HTMLElement, model: T) {
+    element.setAttribute('id', `${model.type}-${model.id}`);
     element.setAttribute('data-type', model.type);
     element.setAttribute('data-id', model.id);
     element.setAttribute('data-parent-id', model.getParent()?.id);
