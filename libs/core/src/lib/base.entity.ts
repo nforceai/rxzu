@@ -1,84 +1,57 @@
-import { MonoTypeOperatorFunction, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BaseEvent, LockEvent } from './interfaces/event.interface';
-import { createValueState, ValueState } from './state';
-import {
-  entityProperty as _entityProperty,
-  ID,
-  log as _log,
-  LOG_LEVEL,
-  UID,
-  withLog as _withLog,
-} from './utils/tool-kit.util';
+import { BaseEvent } from './interfaces/event.interface';
+import { ID, log as _log, LOG_LEVEL, UID } from './utils/tool-kit.util';
 import { HashMap } from './utils/types';
 import { BaseEntityOptions, BaseEntityType } from './interfaces';
 
-export class BaseEntity {
-  protected _id: ID;
-  protected destroyed$: Subject<void>;
-  protected locked$: ValueState<boolean>;
-  protected namespace$: ValueState<string>;
+type Keys = keyof Omit<IBaseEntity, keyof EventTarget>;
 
-  protected readonly _type: BaseEntityType;
-  protected readonly _logPrefix: string;
+class IBaseEntity extends EventTarget {
+  id!: ID;
+  locked!: boolean;
+  namespace!: string;
+  protected readonly type!: BaseEntityType;
+  protected readonly logPrefix!: string;
 
+  constructor(type: BaseEntityType, logPrefix: string) {
+    super();
+    this.type = type;
+    this.logPrefix = logPrefix;
+  }
+
+  override addEventListener(
+    type: Keys,
+    callback: EventListenerOrEventListenerObject | null,
+    options?: boolean | AddEventListenerOptions | undefined
+  ): void {
+    super.addEventListener(type, callback, options);
+  }
+}
+
+export class BaseEntity extends IBaseEntity {
   constructor(options: BaseEntityOptions) {
-    this._id = options.id || UID();
-    this._type = options.type;
-    this._logPrefix = `${options.logPrefix ?? ''}`;
-    this.destroyed$ = new Subject<void>();
-    this.locked$ = createValueState<boolean>(
-      !!options.locked,
-      this.entityPipe('locked')
+    super(options.type, options.logPrefix ?? '');
+    this.id = options.id || UID();
+    this.locked = !!options.locked;
+    this.namespace = options.namespace ?? 'default';
+  }
+
+  get(key: Keys) {
+    return this[key];
+  }
+
+  set<K extends Keys>(key: K, value: IBaseEntity[K]) {
+    const event = new BaseEvent(this);
+    this.dispatchEvent(
+      new CustomEvent<BaseEvent<BaseEntity>>(key, {
+        detail: event,
+      })
     );
-    this.namespace$ = createValueState<string>(
-      options.namespace ?? 'default',
-      this.entityPipe('name')
-    );
-  }
 
-  get type(): BaseEntityType {
-    return this._type;
-  }
-
-  get id(): ID {
-    return this._id;
-  }
-
-  set id(id: ID) {
-    this._id = id;
-  }
-
-  get namespace(): string {
-    return this.namespace$.value;
-  }
-
-  set namespace(value: string) {
-    this.namespace$.set(value);
+    (this as IBaseEntity)[key] = value;
   }
 
   log(message: string, ...args: any): void {
-    _log(`${this._logPrefix} ${message}: `, LOG_LEVEL.LOG, ...args);
-  }
-
-  withLog(message: string, ...args: any): any {
-    return _withLog(`${this._logPrefix} ${message}: `, LOG_LEVEL.LOG, ...args);
-  }
-
-  entityPipe<T>(logMessage = ''): MonoTypeOperatorFunction<T> {
-    return _entityProperty<T>(
-      this.onEntityDestroy(),
-      0,
-      `${this._logPrefix}: ${logMessage}`
-    );
-  }
-
-  getLocked(): boolean {
-    return this.locked$.value;
-  }
-
-  setLocked(locked = true) {
-    this.locked$.set(locked);
+    _log(`${this.logPrefix} ${message}: `, LOG_LEVEL.LOG, ...args);
   }
 
   // eslint-disable-next-line
@@ -100,17 +73,12 @@ export class BaseEntity {
     return clone;
   }
 
-  lockChanges(): Observable<LockEvent> {
-    return this.locked$.select((locked) => new LockEvent(this, locked));
-  }
-
   destroy() {
-    this.log('entity destroyed');
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
-
-  onEntityDestroy(): Observable<BaseEvent<BaseEntity>> {
-    return this.destroyed$.pipe(map(() => new BaseEvent(this)));
+    const event = new BaseEvent(this);
+    this.dispatchEvent(
+      new CustomEvent<BaseEvent<BaseEntity>>('destroyed', {
+        detail: event,
+      })
+    );
   }
 }

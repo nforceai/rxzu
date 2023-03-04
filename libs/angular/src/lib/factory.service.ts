@@ -45,7 +45,7 @@ export class FactoryService extends AbstractFactory<
       throw new Error(
         `[RxZu] Couldn't find component for ${toRegistryKey(
           model.type,
-          model.namespace
+          model._namespace
         )}`
       );
 

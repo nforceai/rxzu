@@ -311,7 +311,7 @@ export class CanvasManager {
     element.setAttribute('data-type', model.type);
     element.setAttribute('data-id', model.id);
     element.setAttribute('data-parent-id', model.getParent()?.id);
-    element.setAttribute('data-namespace', model.namespace);
+    element.setAttribute('data-namespace', model._namespace);
   }
 
   shouldDrawSelectionBox() {
