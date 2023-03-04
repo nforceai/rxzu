@@ -1,3 +1,11 @@
+## [4.1.1](https://github.com/nforceai/rxzu/compare/v4.1.0...v4.1.1) (2023-03-04)
+
+
+### Performance Improvements
+
+* **querySelector:** utilize search by ids instead of complex data attributes ([fb95989](https://github.com/nforceai/rxzu/commit/fb959895a16c8a17798dd8560bbc964219285968))
+* **zonejs:** allowed the use of rxzu without zonejs as a dependency ([72a3b37](https://github.com/nforceai/rxzu/commit/72a3b37b700b7f27dda8d8a533a46980ad6adb32))
+
 # [4.1.0](https://github.com/nforceai/rxzu/compare/v4.0.0...v4.1.0) (2023-03-03)
 
 
