@@ -57,7 +57,11 @@ export class PerformanceExampleStoryComponent {
   createNodes() {
     this.isResseted = false;
     const startTime = performance.now();
+    const nodes = [];
+    const links = [];
+    const labels = [];
 
+    let prevPort: PortModel | null = null;
     for (let index = 0; index < this.numberOfNodesToCreate; index++) {
       const nodeLoop = new NodeModel({ id: `${index}` });
       const row = index % 10;
@@ -67,22 +71,23 @@ export class PerformanceExampleStoryComponent {
       const outPort = new PortModel();
       nodeLoop.addPort(inPort);
       const outport = nodeLoop.addPort(outPort);
+      nodes.push(nodeLoop);
 
-      this.diagramModel.addNode(nodeLoop);
-
-      if (index > 0) {
-        const prevNode = this.diagramModel.getNode(`${index - 1}`) as NodeModel;
-        const prevPort = prevNode.getPort(`${index - 1}`) as PortModel;
+      if (prevPort) {
         const link = outport.link(prevPort);
 
         if (link) {
           const label = new LabelModel({ text: 'label' });
           link.setLabel(label);
-          this.diagramModel.addLink(link);
+          links.push(link);
+          labels.push(label);
         }
       }
+
+      prevPort = inPort;
     }
 
+    this.diagramModel.addAll(...nodes, ...links, ...labels);
     const endTime = performance.now();
     this.initialRenderTimer = endTime - startTime;
   }

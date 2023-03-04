@@ -42,7 +42,6 @@ export class EntityState<T extends BaseEntity> extends ValueState<
     for (const entity of entities) {
       this.add(entity);
     }
-    this.stream$.next(this.value);
     return this;
   }
 

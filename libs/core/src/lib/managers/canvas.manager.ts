@@ -33,6 +33,7 @@ export class CanvasManager {
     if (!nodeElement) {
       return null;
     }
+
     const nodeRect = nodeElement.getBoundingClientRect();
 
     return {
@@ -84,15 +85,18 @@ export class CanvasManager {
       return null;
     }
 
+    const x =
+      sourceElement.offsetWidth / 2 +
+      (rel.x - diagramModel.getOffsetX()) /
+        (diagramModel.getZoomLevel() / 100.0);
+    const y =
+      sourceElement.offsetHeight / 2 +
+      (rel.y - diagramModel.getOffsetY()) /
+        (diagramModel.getZoomLevel() / 100.0);
+
     return {
-      x:
-        sourceElement.offsetWidth / 2 +
-        (rel.x - diagramModel.getOffsetX()) /
-          (diagramModel.getZoomLevel() / 100.0),
-      y:
-        sourceElement.offsetHeight / 2 +
-        (rel.y - diagramModel.getOffsetY()) /
-          (diagramModel.getZoomLevel() / 100.0),
+      x,
+      y,
     };
   }
 
@@ -263,11 +267,10 @@ export class CanvasManager {
       return promise ? firstValueFrom(obs) : obs;
     };
     const factory = this.engine.getFactory();
-    const diagramModel = this.engine.getDiagramModel();
+
     const widget = factory.generateWidget({
       model,
       host,
-      diagramModel,
     });
 
     if (!widget) return toPromise(of(true));
@@ -331,7 +334,7 @@ export class CanvasManager {
     }
 
     const sourceRect = sourceElement.getBoundingClientRect() as DOMRect;
-    const canvasRect = canvas.getBoundingClientRect() as ClientRect;
+    const canvasRect = canvas.getBoundingClientRect() as DOMRect;
 
     return {
       x:
