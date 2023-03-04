@@ -345,6 +345,11 @@ export class MouseManager {
   onMouseUp(event: MouseEvent) {
     const action = this.actionsManager.getCurrentAction()?.action;
 
+    // in case a selection just took place, we can reset the dimensions.
+    if (action instanceof SelectingAction) {
+      action.finalize();
+    }
+
     // are we going to connect a link to something?
     if (action instanceof MoveItemsAction) {
       const element = this.getElement(event);
@@ -459,10 +464,10 @@ export class MouseManager {
       });
 
       this.actionsManager.stopFiringAction();
-      this.actionsManager.startFiringAction(
+
+      this.actionsManager.onceAction(
         new DropAction(event, action.selectionModels)
       );
-      this.actionsManager.stopFiringAction();
     } else {
       this.actionsManager.stopFiringAction();
     }

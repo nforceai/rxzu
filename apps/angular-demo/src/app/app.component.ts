@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ViewChild,
+} from '@angular/core';
 import {
   DiagramModel,
   NodeModel,
@@ -51,6 +56,10 @@ export class AppComponent implements AfterViewInit {
     if (e.dataTransfer && type) {
       e.dataTransfer.setData('type', type);
     }
+  }
+
+  reset() {
+    this.diagramModel.reset();
   }
 
   /**

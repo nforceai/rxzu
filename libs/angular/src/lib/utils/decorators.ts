@@ -11,12 +11,16 @@ export function OutsideZone<T extends ZonedClass>(
 ) {
   const source = descriptor.value;
   descriptor.value = function (...data: any[]) {
-    if (!this.ngZone) {
-      throw new Error(
-        "Class with 'OutsideZone' decorator should have 'ngZone' class property with 'NgZone' class."
-      );
+    if (window && (window as any)['Zone']) {
+      if (!this.ngZone) {
+        throw new Error(
+          "Class with 'OutsideZone' decorator should have 'ngZone' class property with 'NgZone' class."
+        );
+      }
+      return this.ngZone.runOutsideAngular(() => source.call(this, ...data));
     }
-    return this.ngZone.runOutsideAngular(() => source.call(this, ...data));
+
+    return source.call(this, ...data);
   };
   return descriptor;
 }

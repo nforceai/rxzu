@@ -434,8 +434,8 @@ export class DiagramModel extends BaseEntity {
       }
     }
 
-    this.addLinks(links);
     this.addNodes(nodes);
+    this.addLinks(links);
 
     return models;
   }

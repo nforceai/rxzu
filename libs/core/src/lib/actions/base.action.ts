@@ -1,7 +1,9 @@
-export class BaseAction {
-    ms: number;
+export type BaseActionState = 'started' | 'firing' | 'stopped';
 
-    constructor() {
-        this.ms = new Date().getTime();
-    }
+export class BaseAction {
+  ms: number;
+
+  constructor() {
+    this.ms = new Date().getTime();
+  }
 }

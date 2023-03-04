@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Meta } from '@storybook/addon-docs';
 import Code from './assets/code-brackets.svg';
 import Colors from './assets/colors.svg';
 import Comments from './assets/comments.svg';
@@ -137,6 +137,7 @@ npm install @rxzu/angular
 On production environemnt add the following:
 
 `main.ts`
+
 ```typescript
 import { enableProdMode } from '@angular/core';
 import { enableDiagramProdMode } from '@rxzu/angular';
@@ -152,28 +153,44 @@ if(environemnt.production) {
 <div class="subheading">Configure</div>
 
 <div class="link-list">
-  <a class="link-item" href="https://github.com/nforceai/rxzu/tree/main/libs/angular/stories" target="_blank">
+  <a
+    class="link-item"
+    href="https://github.com/nforceai/rxzu/tree/main/libs/angular/stories"
+    target="_blank"
+  >
     <img src={Plugin} alt="plugin" />
     <span>
       <strong>Presets for popular entities</strong>
       Easy setup for default entities
     </span>
   </a>
-  <a class="link-item" href="https://github.com/nforceai/rxzu/tree/main/libs/angular/stories" target="_blank">
+  <a
+    class="link-item"
+    href="https://github.com/nforceai/rxzu/tree/main/libs/angular/stories"
+    target="_blank"
+  >
     <img src={StackAlt} alt="Build" />
     <span>
       <strong>Build customized entities</strong>
       How to customize and create your own entities
     </span>
   </a>
-  <a class="link-item" href="https://github.com/nforceai/rxzu/blob/main/libs/angular/stories/demo-diagram.component.scss" target="_blank">
+  <a
+    class="link-item"
+    href="https://github.com/nforceai/rxzu/blob/main/libs/angular/stories/demo-diagram.component.scss"
+    target="_blank"
+  >
     <img src={Colors} alt="colors" />
     <span>
       <strong>Styling</strong>
       How to configure CSS for the diagram
     </span>
   </a>
-  <a class="link-item" href="https://github.com/nforceai/rxzu/tree/main/libs/core/src/lib/plugins" target="_blank">
+  <a
+    class="link-item"
+    href="https://github.com/nforceai/rxzu/tree/main/libs/core/src/lib/plugins"
+    target="_blank"
+  >
     <img src={Flow} alt="flow" />
     <span>
       <strong>Plugins</strong>
@@ -192,7 +209,11 @@ if(environemnt.production) {
       View the source and add issues
     </span>
   </a>
-  <a class="link-item" href="https://nforceai.slack.com/app_redirect?channel=rxzu" target="_blank">
+  <a
+    class="link-item"
+    href="https://nforceai.slack.com/app_redirect?channel=rxzu"
+    target="_blank"
+  >
     <img src={Comments} alt="comments" />
     <span>
       <strong>Slack chat</strong>

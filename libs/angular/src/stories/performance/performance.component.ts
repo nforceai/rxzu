@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import {
   DiagramModel,
   LabelModel,
@@ -22,16 +16,16 @@ import { bufferTime, map } from 'rxjs/operators';
       <button (click)="resetDiagram()" *ngIf="isResseted === false">
         Reset
       </button>
-      <button (click)="createDiagram()" *ngIf="isResseted">Recreate</button>
+      <button (click)="createDiagram()" *ngIf="isResseted">Paint</button>
       FPS: {{ fps$ | async }} Rendered {{ numberOfNodes }} nodes and links in
-      {{ initialRenderTimer | number: '1.0-0' }} ms
+      {{ initialRenderTimer | number : '1.0-0' }} ms
     </div>
     <rxzu-diagram class="demo-diagram" [model]="diagramModel"></rxzu-diagram>
   `,
   styleUrls: ['../demo-diagram.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PerformanceExampleStoryComponent implements OnInit, AfterViewInit {
+export class PerformanceExampleStoryComponent {
   diagramModel: DiagramModel;
   fps$: Observable<number> = interval(0, animationFrameScheduler).pipe(
     bufferTime(1000),
@@ -39,8 +33,9 @@ export class PerformanceExampleStoryComponent implements OnInit, AfterViewInit {
   );
 
   initialRenderTimer = 0;
-  isResseted = false;
-  numberOfNodes = 500;
+  isResseted = true;
+  numberOfNodes = 0;
+  numberOfNodesToCreate = 500;
   @ViewChild(RxZuDiagramComponent, { static: true })
   diagram?: RxZuDiagramComponent;
 
@@ -48,16 +43,10 @@ export class PerformanceExampleStoryComponent implements OnInit, AfterViewInit {
     this.diagramModel = new DiagramModel();
   }
 
-  ngOnInit() {
-    this.createDiagram();
-  }
-
-  ngAfterViewInit() {
-    this.diagram?.zoomToFit();
-  }
-
   createDiagram() {
     this.createNodes();
+    this.diagram?.zoomToFit();
+    this.numberOfNodes = this.numberOfNodesToCreate;
   }
 
   resetDiagram() {
@@ -68,8 +57,12 @@ export class PerformanceExampleStoryComponent implements OnInit, AfterViewInit {
   createNodes() {
     this.isResseted = false;
     const startTime = performance.now();
+    const nodes = [];
+    const links = [];
+    const labels = [];
 
-    for (let index = 0; index < this.numberOfNodes; index++) {
+    let prevPort: PortModel | null = null;
+    for (let index = 0; index < this.numberOfNodesToCreate; index++) {
       const nodeLoop = new NodeModel({ id: `${index}` });
       const row = index % 10;
       const col = Math.floor(index / 10);
@@ -78,22 +71,23 @@ export class PerformanceExampleStoryComponent implements OnInit, AfterViewInit {
       const outPort = new PortModel();
       nodeLoop.addPort(inPort);
       const outport = nodeLoop.addPort(outPort);
+      nodes.push(nodeLoop);
 
-      this.diagramModel.addNode(nodeLoop);
-
-      if (index > 0) {
-        const prevNode = this.diagramModel.getNode(`${index - 1}`) as NodeModel;
-        const prevPort = prevNode.getPort(`${index - 1}`) as PortModel;
+      if (prevPort) {
         const link = outport.link(prevPort);
 
         if (link) {
           const label = new LabelModel({ text: 'label' });
           link.setLabel(label);
-          this.diagramModel.addLink(link);
+          links.push(link);
+          labels.push(label);
         }
       }
+
+      prevPort = inPort;
     }
 
+    this.diagramModel.addAll(...nodes, ...links, ...labels);
     const endTime = performance.now();
     this.initialRenderTimer = endTime - startTime;
   }

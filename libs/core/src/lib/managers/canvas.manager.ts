@@ -2,12 +2,10 @@ import { Observable, combineLatest, of, firstValueFrom } from 'rxjs';
 import {
   takeUntil,
   switchMap,
-  pluck,
   take,
   filter,
   map,
   catchError,
-  switchMapTo,
 } from 'rxjs/operators';
 import { SelectingAction } from '../actions';
 import { DiagramEngine } from '../engine.core';
@@ -35,6 +33,7 @@ export class CanvasManager {
     if (!nodeElement) {
       return null;
     }
+
     const nodeRect = nodeElement.getBoundingClientRect();
 
     return {
@@ -63,9 +62,7 @@ export class CanvasManager {
 
   getModelElement(model: BaseModel): HTMLElement {
     const canvas = this.getCanvas();
-    const selector = canvas.querySelector(
-      `[data-type="${model.type}"][data-id="${model.id}"]`
-    );
+    const selector = canvas.querySelector(`#${model.type}-${model.id}`);
     if (selector === null) {
       throw new Error(
         `Cannot find [${model.type}] element with id [${model.id}]`
@@ -88,15 +85,18 @@ export class CanvasManager {
       return null;
     }
 
+    const x =
+      sourceElement.offsetWidth / 2 +
+      (rel.x - diagramModel.getOffsetX()) /
+        (diagramModel.getZoomLevel() / 100.0);
+    const y =
+      sourceElement.offsetHeight / 2 +
+      (rel.y - diagramModel.getOffsetY()) /
+        (diagramModel.getZoomLevel() / 100.0);
+
     return {
-      x:
-        sourceElement.offsetWidth / 2 +
-        (rel.x - diagramModel.getOffsetX()) /
-          (diagramModel.getZoomLevel() / 100.0),
-      y:
-        sourceElement.offsetHeight / 2 +
-        (rel.y - diagramModel.getOffsetY()) /
-          (diagramModel.getZoomLevel() / 100.0),
+      x,
+      y,
     };
   }
 
@@ -220,7 +220,7 @@ export class CanvasManager {
 
           linksPainted$.push(
             this.paintModel(link, linksHost).pipe(
-              switchMapTo(
+              switchMap(() =>
                 link.selectLabel().pipe(
                   filter(
                     (
@@ -237,7 +237,7 @@ export class CanvasManager {
           );
         }
 
-        return combineLatest(linksPainted$).pipe(switchMapTo(of()));
+        return combineLatest(linksPainted$).pipe(switchMap(() => of()));
       }),
       catchError((err) => {
         console.error(err);
@@ -267,11 +267,10 @@ export class CanvasManager {
       return promise ? firstValueFrom(obs) : obs;
     };
     const factory = this.engine.getFactory();
-    const diagramModel = this.engine.getDiagramModel();
+
     const widget = factory.generateWidget({
       model,
       host,
-      diagramModel,
     });
 
     if (!widget) return toPromise(of(true));
@@ -286,7 +285,12 @@ export class CanvasManager {
       observers.forEach((observer) => observer.disconnect());
     });
 
-    return toPromise(model.paintChanges().pipe(pluck('isPainted'), take(1)));
+    return toPromise(
+      model.paintChanges().pipe(
+        map((model) => model.isPainted),
+        take(1)
+      )
+    );
   }
 
   subscribeToModelChanges<T extends BaseModel>(element: HTMLElement, model: T) {
@@ -303,6 +307,7 @@ export class CanvasManager {
   }
 
   setBaseAttributes<T extends BaseModel>(element: HTMLElement, model: T) {
+    element.setAttribute('id', `${model.type}-${model.id}`);
     element.setAttribute('data-type', model.type);
     element.setAttribute('data-id', model.id);
     element.setAttribute('data-parent-id', model.getParent()?.id);
@@ -329,7 +334,7 @@ export class CanvasManager {
     }
 
     const sourceRect = sourceElement.getBoundingClientRect() as DOMRect;
-    const canvasRect = canvas.getBoundingClientRect() as ClientRect;
+    const canvasRect = canvas.getBoundingClientRect() as DOMRect;
 
     return {
       x:

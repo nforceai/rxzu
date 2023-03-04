@@ -1,4 +1,4 @@
-import { BaseModel, DiagramModel } from '../models';
+import { BaseModel } from '../models';
 import { AbstractRegistry } from './base.registry';
 import { noop, Observable, Subject } from 'rxjs';
 import { toRegistryKey } from '../utils';
@@ -7,7 +7,6 @@ export interface WidgetOptions<M, H> {
   model: M;
   host: H;
   index?: number;
-  diagramModel?: DiagramModel;
 }
 
 export abstract class AbstractFactory<
@@ -50,14 +49,15 @@ export abstract class AbstractFactory<
   generateWidget<M extends BaseModel>(
     options: WidgetOptions<M, any>
   ): WidgetType | null {
-    if (!this.resolveComponent)
+    if (!this.resolveComponent) {
       throw new Error('resolveComponent is not implemented');
+    }
+
     if (options.model.getPainted().isPainted) return null;
+
     this._beforeGenerate$.next();
     const widget = this.resolveComponent(options);
-
     this._afterGenerate$.next(widget);
-
     this.detectChanges(widget);
 
     return widget as unknown as WidgetType;

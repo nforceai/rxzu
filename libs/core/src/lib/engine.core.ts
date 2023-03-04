@@ -29,10 +29,6 @@ export class DiagramEngine {
     this.canvasManager = _canvasManager || this.createCanvasManager(_canvas);
   }
 
-  test() {
-    return true;
-  }
-
   setup({
     maxZoomIn,
     maxZoomOut,
@@ -211,6 +207,7 @@ export class DiagramEngine {
             nodesLayersRect.width,
             nodesLayersRect.height
           );
+
           diagramModel.setZoomLevel(zoomFactor * 100);
 
           // get canvas top and left values including the offset
