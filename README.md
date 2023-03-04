@@ -7,9 +7,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@rxzu/core.svg?style=for-the-badge)](https://www.npmjs.com/package/@rxzu/core)
 [![](https://img.shields.io/npm/dm/@rxzu/core.svg?style=for-the-badge)](https://www.npmjs.com/package/@rxzu/core)
-[![Slack](https://img.shields.io/badge/slack-chat-green.svg?style=for-the-badge)](https://nforceai.slack.com/app_redirect?channel=rxzu)
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END --> [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/nforceai/rxzu) [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![coc-badge](https://img.shields.io/badge/codeof-conduct-ff69b4.svg)](https://github.com/nforceai/rxzu/blob/main/CODE_OF_CONDUCT.md)
+[![Slack](https://img.shields.io/badge/slack-chat-green.svg?style=for-the-badge)](https://nforceai.slack.com/app_redirect?channel=rxzu)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=for-the-badge)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END --> [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/nforceai/rxzu) [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge)](http://commitizen.github.io/cz-cli/) [![coc-badge](https://img.shields.io/badge/codeof-conduct-ff69b4.svg?style=for-the-badge)](https://github.com/nforceai/rxzu/blob/main/CODE_OF_CONDUCT.md)
 
 > Zu 図 : drawing; picture; diagram; figure; illustration; chart; graph
 
